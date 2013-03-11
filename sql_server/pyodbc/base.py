@@ -22,10 +22,12 @@ from django.db.backends.signals import connection_created
 from django.conf import settings
 from django import VERSION as DjangoVersion
 
-"""Versioning script  - added support for v.12"""
+"""Versioning script  - removed hardcoded versioning
+!!!Support for Django versions <1.0 is now dropped!!!"""
 
 _DJANGO_VERSION = str(DjangoVersion[0]) + str(DjangoVersion[1])
 _DJANGO_VERSION=int(_DJANGO_VERSION)
+
 
 if _DJANGO_VERSION == 12:
     from django import get_version
