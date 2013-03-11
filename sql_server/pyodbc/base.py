@@ -21,26 +21,21 @@ from django.db.backends import BaseDatabaseWrapper, BaseDatabaseFeatures, BaseDa
 from django.db.backends.signals import connection_created
 from django.conf import settings
 from django import VERSION as DjangoVersion
-if DjangoVersion[:2] == (1,4):
-    # Django version 1.4 adds a backwards incompatible change to
-    # DatabaseOperations
-    _DJANGO_VERSION = 14
-elif DjangoVersion[:2] == (1,2) :
+
+"""Versioning script  - added support for v.12"""
+
+_DJANGO_VERSION = str(DjangoVersion[0]) + str(DjangoVersion[2])
+_DJANGO_VERSION=int(_DJANGO_VERSION)
+
+if _DJANGO_VERSION == 12:
     from django import get_version
     version_str = get_version()
-    if 'SVN' in version_str and int(version_str.split('SVN-')[-1]) < 11952: # django trunk revision 11952 Added multiple database support.
+
+    if 'SVN' in version_str and int(version_str.split('SVN-')[-1]) < 11952:
         _DJANGO_VERSION = 11
     else:
         _DJANGO_VERSION = 12
-elif DjangoVersion[:2] == (1,1):
-    _DJANGO_VERSION = 11
-elif DjangoVersion[:2] == (1,0):
-    _DJANGO_VERSION = 10
-elif DjangoVersion[0] == 1:
-    _DJANGO_VERSION = 13
-else:
-    _DJANGO_VERSION = 9
-    
+           
 from sql_server.pyodbc.operations import DatabaseOperations
 from sql_server.pyodbc.client import DatabaseClient
 from sql_server.pyodbc.creation import DatabaseCreation
