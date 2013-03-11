@@ -24,7 +24,7 @@ from django import VERSION as DjangoVersion
 
 """Versioning script  - added support for v.12"""
 
-_DJANGO_VERSION = str(DjangoVersion[0]) + str(DjangoVersion[2])
+_DJANGO_VERSION = str(DjangoVersion[0]) + str(DjangoVersion[1])
 _DJANGO_VERSION=int(_DJANGO_VERSION)
 
 if _DJANGO_VERSION == 12:
